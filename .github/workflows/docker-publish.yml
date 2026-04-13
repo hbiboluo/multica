@@ -1,6 +1,12 @@
 name: Build and Push Docker Images
 
 on:
+  workflow_dispatch:
+    inputs:
+      frontend_api_url:
+        description: "Frontend REMOTE_API_URL (e.g. http://192.168.31.179:26051)"
+        required: false
+        default: "http://backend:8080"
   push:
     tags:
       - "v*"
@@ -82,6 +88,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           args: |
-            REMOTE_API_URL=http://backend:8080
+            REMOTE_API_URL=${{ inputs.frontend_api_url || 'http://backend:8080' }}
           cache-from: type=gha,scope=frontend
           cache-to: type=gha,mode=max,scope=frontend
