@@ -87,7 +87,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          args: |
+          build-args: |
             REMOTE_API_URL=${{ inputs.frontend_api_url || 'http://backend:8080' }}
           cache-from: type=gha,scope=frontend
           cache-to: type=gha,mode=max,scope=frontend
